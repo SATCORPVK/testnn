@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Alyissa</title>
+    <!-- Premium Serif Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --blush-light: #fffcfc;
+            --blush-medium: #ffe8e8;
+            --gold: #d4af37;
+            --text-main: #4a3b37;
+            --text-accent: #8e7368;
+            --glass-bg: rgba(255, 255, 255, 0.4);
+            --glass-border: rgba(212, 175, 55, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--blush-light);
+            color: var(--text-main);
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden; /* Prevent scroll for the landing effect */
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Subtle Animated Background */
+        .background-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 50% 50%, #fff0f0 0%, #fffcfc 100%);
+            overflow: hidden;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: var(--blush-medium);
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.5;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 40px) scale(0.9); }
+        }
+
+        /* Hero Content */
+        .canvas-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .main-message {
+            text-align: center;
+            z-index: 10;
+            padding: 2rem;
+            max-width: 90%;
+            animation: fadeIn 2.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 300;
+            font-style: italic;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        h1 span {
+            display: block;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: revealUp 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+        }
+
+        h1 span:nth-child(2) { animation-delay: 0.3s; }
+        h1 span:nth-child(3) { 
+            animation-delay: 0.6s;
+            color: var(--gold);
+            font-weight: 400;
+        }
+
+        .subtext {
+            font-size: 0.9rem;
+            color: var(--text-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.4em;
+            margin-top: 2rem;
+            opacity: 0;
+            animation: fadeIn 2s 1.5s forwards;
+        }
+
+        /* Interactions */
+        .glass-footer {
+            position: absolute;
+            bottom: 3rem;
+            padding: 1rem 2rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 100px;
+            font-size: 0.8rem;
+            color: var(--text-accent);
+            letter-spacing: 0.1em;
+            opacity: 0;
+            animation: fadeIn 2s 2s forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes revealUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Particle Heart Effect */
+        .heart-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-layer" id="bgLayer"></div>
+    <div class="heart-container" id="heartContainer"></div>
+
+    <main class="main-message">
+        <h1>
+            <span>I love</span>
+            <span>you</span>
+            <span>Alyissa.</span>
+        </h1>
+        <p class="subtext">Forever & Always</p>
+    </main>
+
+    <div class="glass-footer">
+        est. 2026
+    </div>
+
+    <script>
+        // Create organic floating background blobs
+        const bgLayer = document.getElementById('bgLayer');
+        for (let i = 0; i < 5; i++) {
+            const blob = document.createElement('div');
+            blob.className = 'floating-element';
+            const size = Math.random() * 300 + 200;
+            blob.style.width = `${size}px`;
+            blob.style.height = `${size}px`;
+            blob.style.top = `${Math.random() * 100}%`;
+            blob.style.left = `${Math.random() * 100}%`;
+            blob.style.animationDelay = `${Math.random() * -20}s`;
+            blob.style.background = `rgba(255, ${200 + Math.random() * 55}, ${200 + Math.random() * 55}, 0.5)`;
+            bgLayer.appendChild(blob);
+        }
+
+        // Interactive subtle mouse tracking for parallax effect
+        document.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX - window.innerWidth / 2) / 50;
+            const moveY = (e.clientY - window.innerHeight / 2) / 50;
+            document.querySelector('.main-message').style.transform = `translate(${moveX}px, ${moveY}px)`;
+        });
+
+        // Occasional floating hearts
+        const heartContainer = document.getElementById('heartContainer');
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤';
+            heart.style.position = 'absolute';
+            heart.style.color = '#ffdada';
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.bottom = '-50px';
+            heart.style.opacity = '0.7';
+            heart.style.transition = 'transform 6s linear, opacity 6s ease-in';
+            heartContainer.appendChild(heart);
+
+            setTimeout(() => {
+                heart.style.transform = `translateY(-110vh) translateX(${Math.random() * 200 - 100}px) rotate(${Math.random() * 360}deg)`;
+                heart.style.opacity = '0';
+            }, 10);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+
+        setInterval(createHeart, 2000);
+    </script>
+</body>
+</html>
